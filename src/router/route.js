@@ -1,12 +1,15 @@
 import express from "express";
 import { protectRoute, requireAdmin } from "../middleware/authMiddleware.js";
-import { authCallback, getMessages, getUser } from "../controller/auth-controller.js";
+import { authCallback, checkAdmin } from "../controller/auth-controller.js";
 import { createAlbum, deleteAlbum, getAlbumById, getAllAlbums, updateAlbum } from "../controller/album-controller.js";
 import { createSong, deleteSong, getAllSongs, getFeaturedSongs, getMadeForYouSongs, getTrendingSongs, updateSong } from "../controller/song-controller.js";
+import { getMessages, getUser } from "../controller/user-controller.js";
+import { getStats } from "../controller/stats-controller.js";
 
 const router = express.Router();
 
 router.route('/callback').post(authCallback);
+router.route('/check').get(checkAdmin);
 
 router.route('/getUser').get(protectRoute, getUser);
 router.route('/message/:userId').get(protectRoute, getMessages);
@@ -25,6 +28,6 @@ router.route('/trending').get(getTrendingSongs);
 router.route('update-song/:id').patch(protectRoute, requireAdmin, updateSong);
 router.route('delete-song/:id').delete(protectRoute, requireAdmin, deleteSong);
 
-
+router.route('/stats').get(protectRoute, requireAdmin, getStats);
 
 export default router;
