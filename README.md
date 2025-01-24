@@ -93,6 +93,11 @@ npm start
 npm run dev
 ```
 ---
+🌍 View Demo
+
+https://spotify-arsika.up.railway.app/
+
+---
 ## 📜 License
 MIT License
 ---
